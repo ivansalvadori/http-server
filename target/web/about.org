@@ -1,0 +1,24 @@
+#+INCLUDE: "header.org"
+
+
+#+ATTR_HTML: :style display:inline; float:right; width:100pt; padding:5px; margin:20px; border-radius: 105px; box-shadow: 0 0 5px rgba(0, 0, 0, .15); !important
+[[file:images/ivanS.jpg]]
+
+Computer Scientist and Assistant Professor at the Federal University of Technology - Paraná (UTFPR) - Toledo,  Brazil.
+
+* Research interest
+ * Microservices architecture
+ * Semantic Web and Linked Data
+ * Web Applications 
+ * Application and data integration
+
+* Education
+ * D.Sc. in Computer Science (2019) - [[http://ufsc.br][UFSC]], Brazil.
+ * M.Sc. degree in Computer Science (2015) - [[http://ufsc.br][UFSC]], Brazil.
+ * Quality and Software Engineering Specialist (2015) - [[https://www.univali.br/][UNIVALI]], Brazil.
+ * B.Sc. degree in Computer Science (2009) - [[http://ufsc.br][UFSC]], Brazil.
+
+
+* Contact
+The best way to contact me is by email: ivanlsalvadori[at]gmail[dot]com.
+Further information is available on my [[https://www.researchgate.net/profile/Ivan_Salvadori][Research Gate]] profile, on the Brazilian [[http://lattes.cnpq.br/3951980993273260][Lattes]] CV or on my [[https://www.linkedin.com/in/ivansalvadori][Linkedin]] profile.

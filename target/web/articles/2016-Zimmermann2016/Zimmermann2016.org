@@ -1,0 +1,62 @@
+#+INFOJS_OPT: path:../../HtmlTemplate/ccReport.js
+#+HTML_HEAD: <link id="tema" rel="stylesheet" type="text/css" href="../../HtmlTemplate/ccReport.css" />
+
+#+TODO: TODO(t) STARTED(s) WAITING(w) | DONE(d) CANCELED(c)
+#+DATE: 2017-02-04
+#+HTML_HEAD: <meta name="docClass" content= "Review">
+#+TITLE: Microservices tenets: Agile approach to service development and deployment (Review)
+
+Zimmermann, O. (2016). Microservices tenets: Agile approach to service development and deployment. Computer Science - Research and Development. http://doi.org/10.1007/s00450-016-0337-0
+
+* DONE Overview
+  CLOSED: [2017-02-03 Sex 15:04]
+
+This paper analyzes the literature on microservices to identify its tenets. The analysis confirms that microservices can be seen as a variant of SOA in terms of development. In other words, microservices represent one particular approach to implementing SOA. The differences between microservices and SOA are not related to the architectural style, but the concrete realization.
+
+This paper identifies seven microservices tenets:
+  1) *Fine-grained interfaces*: aims at single-responsibility units that can be deployed, changed, replaced, and scaled independently.
+  2) *Business-driven development*: aims at identifying and conceptualize services.
+  3) *Cloud-native application*: summarized in IDEAL (isolated state, distribution, elasticity, automated management and loose coupling) or Heroku's twelve app factors.
+  4) *Multiple computing paradigms*: polyglot programming and persistence strategy.
+  5) *Lightweight containers*: used to deploy services.
+  6) *Decentralized continuous delivery*: aims at reaching high levels of deployment automation and autonomy.
+  7) *DevOps*: aims at reaching high levels of automation for configuration, service monitoring, fault management, etc.
+
+
+Concerning microservice definition, the author presents two contrary positions:
+  1) Microservices as new architectural style.
+  2) Microservices as one way of doing SOA.
+
+In terms of SOA vs. microservices, most of the characteristics of microservices can be found in SOA patterns and best practices. The author presents a map that relates SOA characteristics to microservices. Hence, there is no evidence that microservices is a novel architectural style.
+
+The author says that architectural styles are defined by design intent, principles, and patters, or via technical constraints. However, it is questionable whether process-related and organizational aspects should be included in such definitions.
+
+This article brings some questions/concerns from practitioners. It is said that practitioners welcome guidance that shows more detailed and concrete solutions rather than frequent advice. Such questions/concerns encompass:
+- the use of REST and microservices;
+- if the Web protocols are sufficient;
+- if other remote communication approaches besides HTTP is valid;
+- how to deal with classic distributed issues:
+  - data representations;
+  - schema mismatches;
+  - versioning.
+- how to define machine-readable contracts;
+- semantic interoperability between services and consumers;
+- how to compose microservices;
+- intercommunication between microservices;
+- tools, libraries, frameworks and middlewares for microservices;
+- how to deal with rich/complex domain models with interconnected entities.
+
+In conclusion, it states that HTTP+REST is the only approach to implement remote communication. Then, microservices contracts should handle at least HTTP and message queue protocols. It is an open question on how to create a larger processing unit from a collection of microservices. Another open question is related to patterns, such as API Gateway, that would be necessary to support microservices. Finally, in the response of people who have a negative perspective, the author states that SOA is here to stay.
+  
+  
+
+* DONE Comments
+  CLOSED: [2017-02-03 Sex 15:04]
+
+I disagree with microservices tenets numbered from 4 to 7 could be considered tenets. Except for tenet number 4, they address issues related to post-building services. In other words, these tenets are applied after the microservice creation. With regard to tenet number 4, polyglot programming and persistence are important to make the development more independent, however, it does not affect the microservice itself. These tenets (from 4 to 7) would be better classified as optional microservice characteristics.
+
+One of the identified (SOA and microservices) characteristic is related to smart endpoints and dumb pipes. Could service discovery and composition middlewares be considered as pipes? If so, the use of them could violate this characteristic?
+
+The author points out an important issue when say that in software architecture, architectural styles are defined by design intent, principles and patterns, or via technical constraints. However, microservices are currently defined taking into account process-related and organization aspects. I think these two different aspects should be considered separately. Moreover, considering non-truly architectural aspects for modeling microservices could influence service reuse and composition.
+
+This article addresses microservices compositions as an open question on how to create a larger processing unit from a collection of microservices. The author mentioned both the composition problem and the use of semantics more than once.

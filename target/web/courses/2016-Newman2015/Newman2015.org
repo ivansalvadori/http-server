@@ -1,0 +1,21 @@
+#+TITLE: Building Microservices (Review)
+#+AUTHOR: Ivan Salvadori
+#+DESCRIPTION: Review
+
+#+INFOJS_OPT: path:../../HtmlTemplate/ccReport.js
+#+HTML_HEAD: <link id="tema" rel="stylesheet" type="text/css" href="../../HtmlTemplate/ccReport.css" />
+
+#+MACRO: tag @@latex:\hfill{}\textsc{$1}@@ @@html:&#xa0;&#xa0;&#xa0;<span class="tag"><span class="$1">$1</span></span>@@
+
+#+TODO: TODO(t) STARTED(s) WAITING(w) | DONE(d) CANCELED(c)
+
+Newman, S. (2015). Building Microservices. (M. Loukides & B. MacDonald, Eds.), O’Reilly. Gravenstein Highway North, Sebastopol, CA. USA: O’Reilly Media.  
+
+#+begin_src java :results output raw
+  System.out.println("|1|2|3");
+  System.out.println("|4|5|6");
+#+end_src
+
+sss
+sss
+

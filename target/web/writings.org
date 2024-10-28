@@ -1,0 +1,13 @@
+#+INCLUDE: "header.org"
+
+* Writings
+Here I share some articles/thoughts (not peer reviewed) and personal review of works written by other authors.
+
++ [[file:articles/2021-SOA-Rest-Micro/SOA-Rest-Micro.org][Arquitetura Orientada a Serviços: serviços Web, microsserviços e REST]]
++ [[file:articles/2020-integracao-servidor-movel/artigo-pt-br.org][Integração de aplicações entre servidores e dispositivos móveis]]
++ [[file:articles/2020-Assi2020/Assi2020.org][Assi, A., Mcheick, H., & Dhifli, W. (2020). Data linking over RDF knowledge graphs: A survey.]]
++ [[file:articles/2017-Pautasso/Pautasso2017.org][Pautasso, C., Zimmermann, O., Amundsen, M., Lewis, J., & Josuttis, N. (2017). Microservices in Practice, Part 1: Reality Check and Service Design.]]
++ [[file:articles/2016-Zimmermann2016/Zimmermann2016.org][Zimmermann, O. (2016). Microservices tenets: Agile approach to service development and deployment.]]
++ [[file:articles/2016-Newman2015/Newman2015.org][Newman, S. (2015). Building Microservices.]]  
++ [[file:articles/2016-Richards2015/RichardsMark2015.org][Richards, M. (2015). Microservices vs. Service-Oriented Architecture.]]
+

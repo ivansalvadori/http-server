@@ -1,0 +1,16 @@
+#+TITLE:Ivan Salvadori
+#+INFOJS_OPT: path:css/plain_and_simple.js
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="css/plain_and_simple.css" />
+
+#+begin_src emacs-lisp :exports results :results html
+  "
+  <ul id=\"nav\">
+  <li><a href=\"students.html\">Students</a></li>
+  <li><a href=\"publications.html\">Publications</a></li>
+  <li><a href=\"writings.html\">Writings</a></li>
+  <li><a href=\"projects.html\">Projects</a></li> 
+  <li><a href=\"about.html\">About</a></li>
+  </ul>
+  <br>"
+#+end_src
+

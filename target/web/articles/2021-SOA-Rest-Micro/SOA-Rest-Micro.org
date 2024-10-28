@@ -1,0 +1,150 @@
+#+TITLE: Arquitetura Orientada a Serviços: serviços Web, microsserviços e REST
+#+AUTHOR: Ivan Salvadori
+#+DESCRIPTION: Review
+
+#+INFOJS_OPT: path:../../HtmlTemplate/ccReport.js
+#+HTML_HEAD: <link id="tema" rel="stylesheet" type="text/css" href="../../HtmlTemplate/ccReport.css" />
+
+
+* Introdução
+
+* Arquitetura Orientada a Serviços
+   A arquitetura SOA (Service Oriented Architecture), pode ser definida como um paradigma para implementação e manutenção de processos de negócio em sistemas distribuídos.
+ Não é uma arquitetura propriamente dita, nem mesmo uma tecnologia específica; a melhor definição seria estilo ou conceito, flexível a ponto de ser aplicável a diferentes circunstâncias; por essa razão é caracterizada como paradigma.
+ SOA está fundamentada sobre três pilares: serviços, interoperabilidade e baixo acoplamento. Serviços representam uma funcionalidade de negócio, por exemplo: armazenar ou carregar dados de clientes.
+ Interoperabilidade é a infraestrutura necessária para facilitar a distribuição dos processos de negócio através de sistemas distribuídos, com diferentes plataformas e tecnologias.
+ Entende-se por baixo acoplamento o baixo nível de dependência entre sistemas, pois os impactos causados por evolução e manutenção devem ser minimizados.
+ SOA pode ser implementado através de Web Services.
+ Entretanto, a adoção de SOA não está necessariamente vinculada a uma determinada tecnologia. 
+SOA é uma forma de arquitetura de tecnologia que adere aos princípios de orientação a serviços.
+Quando realizada através da plataforma de tecnologia de serviços da Web, a SOA estabelece o potencial para apoiar e promover esses princípios em todo o processo de negócios e domínios de automação de uma empresa.
+
+Existem muitas definições diferentes para o  termo SOA. No entanto, pelo menos todas as definições concordam que SOA é um paradigma para maior flexibilidade.  Thomas Erl define SOA como um paradigma de design pretendido para a criação de unidades de lógica de solução que são individualmente moldadas para que possam ser coletivamente e repetidamente utilizadas para realizar um conjunto específico de objetivos. OASIS define SOA como um paradigma para organizar e utilizar recursos distribuídos que podem estar sob o controle de diferentes domínios. 
+SOA não é uma arquitetura concreta: é algo que leva a uma arquitetura concreta. Pode-se definir como estilo, paradigma, conceito, perspectiva, filosofia ou representação. Ou seja, SOA não é uma ferramenta ou estrutura concreta que pode ser adquirida. É uma abordagem, um modo de pensar, um sistema de valores que leva a certas decisões concretas ao projetar uma arquitetura de software. 
+SOA incentiva que unidades de lógica individuais existam de forma autônoma, mas não isoladas umas das outras. No contexto SOA, unidades de lógica são conhecidas como serviços. A SOA contemporânea representa uma arquitetura aberta, ágil, extensível e federada, composta por serviços autônomos, diversos, interoperáveis, detectáveis e potencialmente reutilizáveis, implementados como serviços Web. SOA estabelece uma abstração de lógica e tecnologia de negócios que podem introduzir mudanças na modelagem de processos de negócios e na arquitetura técnica, resultando em um acoplamento flexível entre esses modelos.
+
+Aplicações que adotam a arquitetura SOA devem possuir certas propriedades que atendam aos requisitos fundamentais de aplicações orientadas a serviços. Os três pilares serviços, interoperabilidade e baixo acoplamento. Se desdobram em uma série de características que ajudam ainda mais a distinguir SOA de outros modelos arquiteturais.
+
+** Abstração
+Software development is the art of abstraction. We have to abstract reality in such a way that only the relevant aspects of a problem are handled. Beyond what is described in the service contract, services hide logic from the outside world.
+
+** Autonomia
+O princípio da autonomia define que serviços sejam tão independentes e autocontidos quanto possível. SOA se baseia e expande esse princípio promovendo o conceito de autonomia em todos os ambientes de solução e na empresa. Aplicativos compostos por serviços autônomos, por exemplo, podem ser vistos como serviços compostos e autossuficientes que exercem seu próprio autogoverno em ambientes de integração orientados a serviços.
+
+** Composição de Serviços
+Composability is a deep-rooted characteristic of SOA that can be realized on different levels. For example, by fostering the development and evolution of composable services, SOA supports the automation of flexible and highly adaptive business processes. As previously mentioned, services exist as independent units of logic. A business process can therefore be broken down into a series of services, each responsible for executing a portion of the process.
+Mecanismos para descrição, descoberta e invocação de serviços
+
+** Baseado em orquestração
+
+
+
+* Modelagem de serviços
+
+Web APIs REST representam uma alternativa leve para a implementação de serviços.
+Um serviço pode ser compreendido como um artefato de software que disponibiliza um conjunto de funcionalidades por meio de uma API, publicadas através de um contrato de serviço.
+Web APIs podem ser modeladas de diversas maneiras.
+Entretanto, é possível classificar a modelagem de Web APIs em três formas distintas.
+
+WEB API apenas como interface de acesso.
+Web APIs modeladas dessa maneira adotam parcialmente os princípios arquiteturais REST. Essas implementações buscam principalmente tornar acessível o conjunto de suas funcionalidades. É comum os casos onde aplicações originalmente implementadas como desktop serem adaptadas para expor suas funcionalidades através de uma Web API.
+É importante destacar que não há nada de errado nesta prática.
+Entretanto, estas implementações geralmente possuem baixa aderência aos princípios REST, principalmente quanto a modelagem de funcionalidades em termos de recursos, suas representações e principalmente quanto ao uso de controles hipermídia.
+
+A segunda forma de modelagem compreende Web services REST que implementam suas funcionalidades em termos de recursos Web. Estas implementações seguem os princípios arquiteturas com mais rigor.
+De forma geral, as implementações definem explicitamente contextos como descritos na metodologia Domain Driven Design, proposta por Eric Evans em 2016.
+Um contexto define explicitamente as fronteiras de um determinado domínio de aplicação.
+As fronteiras são definidas através de uma barreira lógica que delimita os elementos que estão fortemente relacionados.
+Entretanto, Web APIs classificadas neste grupo disponibilizam todas as funcionalidades através de um único artefato de software, também conhecida como aplicações monolíticas.
+E por essa razão, a modificação de um único contexto implica na geração de uma nova versão de toda a Web API.
+
+Por fim, a terceira forma de modelagem compreende Web APIs modeladas em forma de microserviços.
+Com o objetivo de tornar os serviços disponibilizados na Internet e em ambientes de nuvem computacional mais coesos e menos acoplados, os microservices estão substituindo as implementações tradicionais, conhecidas como aplicações monolíticas.
+Dessa forma, os microservices disponibilizam apenas um subconjunto das funcionalidades que compõem um contexto de negócio bem definido.
+O resultado é a fragmentação dos dados e das funcionalidades em diversos componentes que se comunicam e operam em conjunto.
+Entretanto, a adoção de microservices adiciona uma complexidade significativa, pois são necessários maiores esforços para comunicação e cooperação dos diversos serviços na realização das funcionalidades.
+
+Microservices são serviços independentes e pequenos.
+Cada microservice deve ser desenvolvido e mantido por um único time de desenvolvimento.
+Isso é importante para garantir que um microservice seja independente dos demais e também independente dos demais times de desenvolvimento.
+O foco principal dos microservices é atingir a excelência dos requisitos de software presentes em um domínio bem definido, que pode estar dividido em diversos contextos (bounded context).
+Os microserviços que implementam um único contexto mantêm unidos os elementos que sofrem alterações pelos mesmos motivos, sendo assim, podem ser implementados e implantados de forma independente.
+  
+  
+
+** Principios Arquiteturais REST
+
+REST é uma coleção de princípios e restrições arquiteturais para o desenvolvimento de aplicações distribuídas na Web.
+REST adota o paradigma cliente-servidor e constitue em uma abordagem leve para o desenvolvimento de Web Services, que busca simplicidade e baixo acoplamento.
+A seguir, são apresentados os detalhes de cada restrição arquitetural que compõem o desenvolvimento de Web APIs REST.
+
+*** Identificação e endereçamento de recursos
+Recursos formam a base dos princípios REST e podem ser qualquer informação que se deseje tornar acessível a clientes remotos, e que são endereçados através de um identificador único, denominado URI (Uniform Resource Identifier).
+Recursos podem ser uma lista de filmes em cartaz em um cinema, comentários de um blog, uma página pessoal ou um perfil de um usuário de uma rede social, por exemplo.
+Um recurso pode ser identificado por diversas URIs, mas uma URI endereça apenas um recurso. 
+
+*** Multiplos formatos de representação
+Recurso podem ser representados de diferentes maneiras.
+A representação de um recurso é uma amostra dos valores de suas propriedades em um determinado momento do tempo.
+O recurso jamais é acessado diretamente, mas através de uma representação, sendo assim uma URI está sempre associada a pelo menos uma representação.
+
+JSON é uma das representações mais utilizadas em Web APIs REST.
+JSON é uma forma textual de representação de dados estruturados em uma coleção de pares no formato de chave/valor. A chave sempre é descrita como texto, e o valor pode ser expresso como texto, numero, booleano, nulo, objeto ou uma sequência ordenada de valores.
+JSON é muito utilizado no intercâmbio de informações, pois é independente de linguagem de programação, de fácil criação, manipulação e análise. Apesar da popularidade do JSON, apropriado para representar informações que serão processadas por outras aplicações, é comum Web APIs manipularem recursos representados em HTML para serem consumidos diretamente por seres humanos. 
+
+*** Interface Uniforme
+Um dos principais princípios arquiteturais REST é o estabelecimento de uma interface uniforme entre cliente e servidor. O uso de uma interface uniforme proporciona uma arquitetura simplificada e desacoplada.
+Uma das formas para estabelecer uma interface uniforme é respeitar a semântica do protocolo utilizado pelo Web Service.
+O HTTP é o protocolo mais utilizados em Web APis REST, e respeitar a semântica do protocolo significa utilizar adequadamente os seus verbos e códigos de mensagens. Os verbos HTTP mais utilizados são:
+• GET - Obter a representação de um recurso;
+• POST - Criar um novo recurso;
+• PUT - Alterar um recurso;
+• DELETE - Remover um recurso.
+
+Espera-se que os significados dos verbos HTTP sejam respeitados, empregando o verbo adequado para cada ação, embora muitas implementações REST negligenciam esta restrição e utilizam GET para obter, criar, alterar e remover recursos, dentre outras combinações.
+Outra restrição imposta pelo REST é a correta utilização de códigos de status ou mensagens.
+Todas as requisições tratadas pelo servidor recebem um código de status, que informa ao cliente o resultado da requisição. Os códigos de status possuem tamanho fixo de três dígitos e estão organizados da seguinte forma:
+
++ 1XX - Informações;
++ 2XX - Sucessos;
++ 3XX - Redirecionamentos;
++ 4XX - Erros causados pelo cliente;
++ 5XX - Erros causados no servidor.
+
+*** Mensagens autocontidas
+Outra restrição arquitetural exige que as requisições contenham todas as informações necessárias para sua execução, sem recorrer a dados armazenados em sessões do usuário.
+Não é esperado que o servidor mantenha dados na sessão do usuário, tornando a aplicação stateless. É responsabilidade da aplicação cliente manter o estado dos recursos para o usuário final, ficando o servidor com a responsabilidade de disponibilizar representações de recursos e alterar seus estados.
+O comportamento stateless implica que o servidor não deve manter nenhuma informação sobre as requisições realizadas.
+O envio de todas as informações necessárias para a execução das requisições, somado à utilização correta do protocolo utilizado pelo Web Service resulta em mensagens auto-descritivas, outro importante princípio arquitetural REST.
+
+*** HATEOAS
+O estilo arquitetural REST adota o princípio HATEOAS (Hypermedia as the Engine of Application State).
+Este princípio define que as mudanças de estado da aplicação devem ser guiadas através de controles hipermídia.
+No contexto de REST, entende-se por aplicação o conjunto de recursos e seus respectivos estados manipulados por um cliente.
+Controles hipermídia podem assumir a forma de links, que guiam a navegação entre diferentes recursos. Um formulários HTML é outro exemplo de controle hipermídia, que oferece mecanismos para criação ou alteração de informações.
+HATEOAS implica que as representações de recursos, além de conter dados, devem conter controles hipermídia com transições válidas para um determinado estado.
+
+
+** Arquitetura de microseviços
+
+
+
+  
+
+* Conclusões
+ Web APIs podem utilizar diversos protocolos de comunicação.
+ Entretanto, o mais utilizado é o HTTP. Ao adotar REST, a Web API deve obedecer a semântica do protocolo escolhido.
+ Tratando-se do HTTP, deve-se utilizar corretamente os verbos (GET, POST, PUT e DELETE) e os códigos de notificação de mensagens.
+ Além de utilizar o protocolo HTTP como base, as implementações de Web APIs utilizam a Web como infraestrutura de desenvolvimento.
+ Utilizar a Web como infraestrutura implica a adoção tecnologias padronizadas, bem como o emprego correto dos protocolos usados pelas aplicações.
+
+Ocorre neste momento uma mudança de perspectiva, onde o foco deixa de ser em serviços e passa a ser em representações de recursos e suas transições de estado.
+As transições são as requisições que alteram o estado de um recurso, embora nem todas as requisições causem mudança de estado.
+Quando o Web Service obedece a semântica do protocolo HTTP, fica mais fácil identificar a natureza das requisições, facilitando a utilização por parte das aplicações clientes.
+
+Microservices estão substituindo as aplicações monolíticas para tornar os serviços mais coesos e menos acoplados, através da decomposição das funcionalidades e dados em diversos componentes.
+Juntamente com os benefícios provenientes da adoção da arquitetura de microservices acompanham as complexidades acidentais.
+Na mesma proporção que a quebra das funcionalidades facilita o desenvolvimento isolado dos componentes resultantes, a comunicação e a colaboração entre as partes é significativamente mais complexa.
+
+
+ 

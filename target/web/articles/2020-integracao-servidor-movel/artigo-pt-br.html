@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt_BR" xml:lang="pt_BR">
+<head>
+<!-- 29/09/2023 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Integração de aplicações entre servidores e dispositivos móveis</title>
+<meta name="author" content="Ivan Salvadori" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<meta name="docClass" content= "Artigo">
+<link id="tema" rel="stylesheet" type="text/css" href="../../HtmlTemplate/ccReport.css" />
+
+<script src="../../HtmlTemplate/ccReport.js">
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+// @license-end
+</script>
+
+<script>
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+org_html_manager.set("TOC_DEPTH", "3");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "info");
+org_html_manager.setup();  // activate after the parameters are set
+// @license-end
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Integração de aplicações entre servidores e dispositivos móveis</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>&Iacute;ndice</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org93599ec">1. Introdução</a></li>
+<li><a href="#org08c96ab">2. Conceitos básicos</a></li>
+<li><a href="#org6b7e0d7">3. Integração Síncrona</a></li>
+<li><a href="#org42560e9">4. Integração Assíncrona</a></li>
+<li><a href="#org4d2a01a">5. Conclusão</a></li>
+</ul>
+</div>
+</div>
+<p>
+[<a href="artigo-en.html">English</a>]  
+</p>
+
+<div id="outline-container-org93599ec" class="outline-2">
+<h2 id="org93599ec"><span class="section-number-2">1.</span> Introdução</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Este artigo apresenta as principais formas de integração entre servidores e aplicações executadas dispositivos móveis. 
+Primeiramente, é fundamental definir alguns conceitos básicos bem como especificar a motivação para integração neste cenário.
+O texto apresenta duas formas de integração de aplicações: integrações síncronas e assíncronas.
+São apresentados detalhes sobre  serviços web SOAP e REST para realizar a integração síncrona e Websockets, filas e tópicos para integração assíncrona.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org08c96ab" class="outline-2">
+<h2 id="org08c96ab"><span class="section-number-2">2.</span> Conceitos básicos</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+O primeiro conceito a ser definido é o de servidor.
+A primeira vista, servidor pode ser entendido como um recurso computacional para execução de uma aplicação ou uma coleção de aplicações.
+No contexto de integração, é mais adequado definir o termo servidor como recurso de software ao invés de recurso computacional ou hardware.
+Exemplos de servidores neste contexto podem ser: servidores de banco de dados, servidores de aplicações, servidores de arquivo, servidores de email, dentre outros.
+Todos estes exemplos possuem em comum uma camada de software responsável por uma determinada tarefa.
+O termo servidor traz consigo a idéia de acessibilidade.
+Esta idéia refere-se à capacidade de elementos externos comunicarem-se com as aplicações disponibilizadas pelos servidores.
+De forma geral, pode-se caracterizar os elementos externos como aplicações.
+Tem-se então, um cenário onde aplicações comunicam-se entre si para alcançar os seus objetivos desejados.
+A este processo de comunicação entre aplicações dá-se o nome de integração de aplicações
+</p>
+
+<p>
+Diversas são as justificativas para integrar aplicações.
+Manter o software o mais coeso possível é um dos grandes motivadores para integração de aplicações.
+Uma aplicação é desenvolvida para executar um conjunto específico de funcionalidades sobre um determinado domínio.
+Dessa forma, é essencial isolar a aplicação de outras funcionalidades que não estão diretamente relacionadas com o domínio, mas que são necessárias para sua correta execução.
+Funcionalidades não relacionadas com o domínio da aplicação podem representar requisitos não funcionais, como por exemplo: envio de email, controle de acesso e segurança, persistência de dados, entre outros.
+Para essas funcionalidades, a aplicação pode estabelecer uma integração com servidores capazes de executar essas atividades.
+A reutilização de funcionalidades é outra justificativa para a integração de aplicações.
+Uma determinada aplicação pode reutilizar funcionalidades previamente implementadas por outras aplicações.
+Além disso, a simples necessidade de disponibilizar serviços ou dados para parceiros exige a adoção de abordagens de integração de aplicações.
+</p>
+
+<p>
+As justificativas anteriormente citadas se aplicam a qualquer tipo de aplicação, seja ela desenvolvida para ser executada em dispositivo móvel ou não.
+Entretanto, aplicações para dispositivos móveis possuem características específicas que motivam ainda  mais a realização de integração com servidores.
+Apesar de bons recursos computacionais como: processador, memória e capacidade de armazenamento, ainda assim os dispositivos móveis atuais possuem limitações.
+Muitas técnicas de desenvolvimento de interfaces adaptativas são utilizadas para oferecer uma melhor experiência ao usuário.
+Entretanto, quando comparadas com computadores pessoais ou laptops, os celulares tem a desvantagem do tamanho de tela para apresentar a interface gráfica do usuário.
+Por esse motivo, é comum a implementação parcial de funcionalidades em aplicações para dispositivos móveis.
+Usuários desejam independência para utilizar suas aplicações.
+Quando as funcionalidades de uma aplicação são disponibilizadas através de diferentes meios, os usuários podem escolher a maneira mais adequada para diferentes situações.
+Aplicações desenvolvidas para computadores pessoais podem ter versões adaptadas para dispositivos móveis.
+Usuários desejam compartilhar informações e colaborar com outros usuários.
+Para isso, as aplicações necessitam de um suporte de servidores que agem como ponto central de armazenamento de dados.
+</p>
+
+<p>
+Dispositivos móveis não necessariamente são celulares ou tablets.
+Aplicações podem ser executadas em uma variedade de dispositivos sensores que monitoram variáveis ambientais ou outros dispositivos.
+Dispositivos sensores podem ser instalados em automóveis, aviões, e na construção das chamadas cidades inteligentes. 
+Dessa forma, para superar eventuais limitações de hardware, oferecer independência de uso, permitir o compartilhamento e colaboração entre os usuários, é necessário integração de aplicações.
+A integração de aplicações pode ser realizada de diversas formas, que variam especialmente quanto a forma de acesso às funcionalidades.
+Neste texto, são consideradas as integrações síncronas e assíncronas.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6b7e0d7" class="outline-2">
+<h2 id="org6b7e0d7"><span class="section-number-2">3.</span> Integração Síncrona</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Na integração síncrona, uma aplicação cliente envia uma requisição para um servidor e aguarda uma resposta acerca da funcionalidade desejada.
+A idéia de sincronismo reside no fato da aplicação cliente aguardar uma resposta do servidor para continuar seu fluxo de processamento.
+Uma requisição pode ter diferentes respostas.
+O servidor pode recusar ou desconhecer os dados enviados pelo cliente.
+Outro possível resultado pode representar erro de execução no lado servidor ou até mesmo não responder no tempo determinado pelo cliente.
+Independentemente do resultado, o cliente fica aguardando até que uma resposta seja produzida.
+</p>
+
+<p>
+A computação orientada a serviços é uma das formas mais utilizadas para implementar a integração síncrona entre aplicativos.
+A computação orientada a serviços é um paradigma de computação que utiliza serviços de software como elementos fundamentais para o desenvolvimento e implantação de aplicativos de software distribuídos. 
+Serviços são elementos computacionais independentes de plataforma que executam funções de um determinado processo de negócio.
+Ou seja, de acordo com o domínio para o qual é fornecido, um serviço deve representar uma funcionalidade que corresponde a uma atividade do mundo real.
+Na prática, funcionalidades são implementadas na forma de serviços web que expõem seus recursos de forma programática pela internet através de protocolos padronizados.
+</p>
+
+<p>
+As abordagens mais utilizadas para implementar serviços web são SOAP e APIs Web RESTful.
+SOAP é o modelo mais tradicional e utilizado por grandes organizações, além de ser um padrão recomendado pelo W3C. 
+No padrão SOAP, a comunicação é realizada através do envio de um envelope de dados pelo cliente para o serviço web. 
+O envelope é um documento no formato XML que carrega internamente o conteúdo da mensagem, além de elementos opcionais relacionados à infra-estrutura, segurança, roteamento, dentre outras propriedades.
+Serviços SOAP são comumente utilizados para integração de aplicações corporativas.
+De forma geral, este tipo de integração utiliza infra-estrutura do tipo <i>Enterprise Service Bus</i> (ESB) para orquestrar as trocas de mensagens entre os serviços que compõem o sistema.
+</p>
+
+<p>
+REST é uma coleção de princípios e restrições arquiteturais para o desenvolvimento de aplicações distribuídas na Web.
+REST é uma abordagem leve para o desenvolvimento de serviços web, que busca simplicidade e baixo acoplamento.
+Recursos formam a base dos serviços REST e podem ser qualquer informação a tornar-se acessível a clientes remotos
+Recursos são endereçados através de um identificador único, denominado URI (<i>Uniform Resource Identifier</i>). 
+Exemplos de recursos podem ser uma lista de filmes em cartaz no cinema, comentários de um blog, uma página pessoal ou um perfil de um usuário de uma rede social, por exemplo.
+Uma das representações de recurso mais utilizadas em serviços web REST é o JSON. 
+JSON é uma forma textual de representação de dados estruturados em uma coleção de pares no formato de chave/valor.
+</p>
+
+<p>
+Um dos princípios arquiteturais REST é o estabelecimento de uma interface uniforme entre cliente e servidor. 
+O uso de uma interface uniforme proporciona uma arquitetura simplificada e desacoplada. Uma das formas para estabelecer uma interface uniforme é respeitar a semântica do protocolo utilizado pelo serviço. 
+O HTTP é o protocolo mais utilizados em REST, e respeitar a semântica do protocolo significa utilizar adequadamente os seus verbos e códigos de mensagens. 
+</p>
+
+<p>
+Os verbos HTTP mais utilizados são:
+</p>
+<ul class="org-ul">
+<li>GET - Obter a representação de um recurso;</li>
+<li>POST - Criar um novo recurso;</li>
+<li>PUT - Alterar um recurso;</li>
+<li>DELETE - Remover um recurso.</li>
+</ul>
+
+<p>
+Espera-se que os significados dos verbos HTTP sejam respeitados, empregando o verbo adequado para cada ação, embora muitas implementações REST negligenciem esta restrição e utilizam GET para obter, criar, alterar e remover recursos, dentre outras combinações.
+Outra restrição imposta pelo REST é a correta utilização de códigos de status ou mensagens. 
+Todas as requisições tratadas pelo servidor recebem um código de status, que informa ao cliente o resultado da requisição.
+Requisições que resultam em sucesso devem retornar uma resposta com um dos códigos do grupo 2XX. 
+Outro exemplo é quando o cliente faz uma requisição que não possui autorização, onde o código de resposta deve ser 401, indicando ao cliente que o erro é de autenticação inválida. 
+Da mesma forma, quando ocorre algum erro interno do servidor, a resposta deve apresentar o erro 500. 
+Os códigos de status do protocolo HTTP fornecem uma maneira adequada de categorizar e padronizar respostas das requisições, e os princípios REST pedem atenção neste aspecto.
+</p>
+
+<p>
+Outra restrição arquitetural exige que as requisições contenham todas as informações necessárias para sua execução, sem recorrer a dados armazenados em sessões do usuário. Não é esperado que o servidor mantenha dados na sessão do usuário, tornando a aplicação <i>stateless</i>.
+É responsabilidade da aplicação cliente manter o estado dos recursos para o usuário final, ficando o servidor com a responsabilidade de disponibilizar representações de recursos e alterar seus estados. 
+O comportamento <i>stateless</i> implica que o servidor não deve manter nenhuma informação sobre as requisições anteriormente realizadas. 
+O envio de todas as informações necessárias para a execução das requisições, somado à utilização correta do protocolo utilizado pelo serviço resulta em mensagens auto descritivas, outro importante princípio arquitetural REST.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org42560e9" class="outline-2">
+<h2 id="org42560e9"><span class="section-number-2">4.</span> Integração Assíncrona</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+O modelo de integração síncrona, anteriormente apresentado, segue o modelo cliente/servidor, onde a comunicação tem início na requisição do cliente e fim na resposta do servidor.
+Dessa forma, para verificar a existência de novos dados no servidor, uma nova requisição deve ser realizada.
+Em muitos casos, aplicações clientes realizam incessantes requisições ao servidor, representando um abuso do protocolo HTTP.
+Sendo assim, outras formas de integração devem ser adotadas a fim de estabelecer uma comunicação bidirecional entre cliente e servidor.
+</p>
+
+<p>
+A API WebSocket fornece um protocolo de comunicação full-duplex e bidirecional através de uma única conexão TCP. 
+Full-duplex significa que um cliente e um servidor podem enviar mensagens independentes um dos outros. 
+Além de permitir que um cliente envie uma mensagem ao servidor, a comunicação bidirecional permite que o servidor envie mensagens aos clientes quando julgar necessário.
+A API WebSocket muda a forma como os servidores web lidam com as requisições de seus clientes, pois ao invés de encerrar a conexão, o servidor mantém o canal de comunicação aberto para que mensagens sejam trocadas.
+</p>
+
+<p>
+Outra forma para implementar integrações assíncronas é através da adoção de meios de comunicação orientados a eventos.
+Nesta forma, os componentes são classificados em produtores de eventos e processadores de eventos.
+Uma aplicação no servidor pode assumir o papel de produtor de eventos que são de interesse de aplicações clientes.
+É comum a presença de um servidor de mensagens em comunicações orientadas a eventos.
+De forma geral, servidores de mensagens são capazes de oferecer duas formas de comunicação: filas e tópicos.
+Filas implementam o padrão ponto-a-ponto de entrega de mensagens para um único consumidor.
+Em caso de haver vários consumidores registrados em uma mesma fila, a mensagem só será entregue para um deles.
+Tópicos implementam o padrão <i>Publish-Subscribe</i> que permite o envio de uma mesma mensagem para vários consumidores diferentes.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org4d2a01a" class="outline-2">
+<h2 id="org4d2a01a"><span class="section-number-2">5.</span> Conclusão</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Este artigo apresentou as duas principais formas de integração entre aplicativos e servidor: integração síncrona e assíncrona.
+Os dois modelos de integração de aplicações possuem vantagens e desvantagens. 
+É fundamental a escolha adequada para cada tipo de integração.
+A escolha deve ser baseada nos requisitos das aplicações, formas de utilização, domínio do problema, frequência entre as trocas de mensagens e tipos de dispositivos utilizados, dentre outros.
+</p>
+
+<p>
+Na integração síncrona, a comunicação é encerrada quando o servidor responde a uma requisição do cliente.
+Esta forma de integração é geralmente implementada através de serviços REST ou SOAP.
+Uma importante vantagem de REST sobre SOAP é que o protocolo auxilia o cliente a compreender a troca de mensagens ao incorporar corretamente códigos de status, formato de dados negociados e semântica de verbos.
+Serviços SOAP envelopam toda a informação em uma estrutura de dados representada em XML.
+Além da resposta do serviço, o envelope SOAP contém as informações sobre o sucesso ou fracasso da requisição.
+Dessa forma, o cliente não possui nenhuma informação sobre a resposta enquanto não processar completamente o envelope recebido.
+Além disso, serviços REST permitem a representação dos dados em diferentes formatos.
+Clientes e servidores REST podem negociar a representação de dados mais adequada, enquanto servidores SOAP utilizam apenas XML.
+</p>
+
+<p>
+Na integração assíncrona, o canal de comunicação entre cliente e servidor permanece aberto, permitindo a troca de mensagens de forma bidirecional.
+Web Sockets, filas e tópicos podem ser utilizados para implementar integrações assíncronas.
+A integração assíncrona de aplicações permite que clientes realizem atualizações dinâmica de conteúdo, sem a necessidade de bombardear o servidor com requisições e ao mesmo tempo proporcionar melhor experiencia com o usuário.
+No cenário onde as aplicações clientes são executadas em dispositivos móveis, 
+a comunicação assíncrona pode maximizar a utilização de recursos, uma vez que tais dispositivos possuem limitação de bateria, processamento e uso de rede.
+No caso de dispositivos sensores, a integração assíncrona pode otimizar o fluxo de requisições realizadas e recebidas, uma vez que a comunicação pode influenciar o funcionamento e o resultado de medições de variáveis de ambiente.
+Por fim, filas podem ser utilizadas para balancear a carga entre os componentes de uma integração de aplicações, em especial num cenário de diversos sensores espalhados em ampla área geográfica.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Data: 04/06/2020</p>
+<p class="author">Autor: Ivan Salvadori</p>
+<p class="date">Criado em: 29/09/2023</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

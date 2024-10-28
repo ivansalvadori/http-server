@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 03/07/2020 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Real-time Linked Dataspaces (Review)</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Ivan Salvadori" />
+<meta name="description" content="Review"
+ />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../HtmlTemplate/ccReport.css" />
+
+<script type="text/javascript" src="../../HtmlTemplate/ccReport.js">
+/**
+ *
+ * @source: ../../HtmlTemplate/ccReport.js
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in ../../HtmlTemplate/ccReport.js.
+ *
+ * Copyright (C) 2012-2018 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in ../../HtmlTemplate/ccReport.js.
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "3");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "1");
+org_html_manager.set("VIEW", "info");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Real-time Linked Dataspaces (Review)</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org467e386">1. Preliminaries</a></li>
+<li><a href="#org5d33a80">2. <span class="done DONE">DONE</span> A Data Platform for Intelligent Systems</a>
+<ul>
+<li><a href="#org50f04f4">2.1. Summary</a>
+<ul>
+<li><a href="#org4c96cba">2.1.1. Foundations</a></li>
+</ul>
+</li>
+<li><a href="#orge915923">2.2. Comments</a></li>
+</ul>
+</li>
+<li><a href="#orgdfee682">3. <span class="todo TODO">TODO</span> Enabling Knowledge Flows in an Intelligent Systems Data Ecosystem</a></li>
+<li><a href="#orga7976f0">4. <span class="todo TODO">TODO</span> Dataspaces: Fundamentals, Principles, and Techniques</a></li>
+<li><a href="#org1e4c79c">5. <span class="todo TODO">TODO</span> Fundamentals of Real-time Linked Dataspaces</a></li>
+<li><a href="#org0303b6d">6. <span class="todo TODO">TODO</span> Data Support Services for Real-time Linked Dataspaces</a></li>
+<li><a href="#orgc8cc9bc">7. <span class="todo TODO">TODO</span> Catalog and Entity Management Service for Internet of Things-Based Smart Environments</a></li>
+<li><a href="#orgcfefe54">8. <span class="todo TODO">TODO</span> Querying and Searching Heterogeneous Knowledge Graphs in Real-time Linked Dataspaces</a></li>
+<li><a href="#org66781db">9. <span class="todo TODO">TODO</span> Enhancing the Discovery of Internet of Things-Based Data Services in Real-time Linked Dataspaces</a></li>
+<li><a href="#org6412f49">10. <span class="todo TODO">TODO</span> Human-in-the-Loop Tasks for Data Management, Citizen Sensing, and Actuation in Smart Environments</a></li>
+<li><a href="#org121beb0">11. <span class="todo TODO">TODO</span> Stream and Event Processing Services for Real-time Linked Dataspaces</a></li>
+<li><a href="#org497edbb">12. <span class="todo TODO">TODO</span> Quality of Service-Aware Complex Event Service Composition in Real-time Linked Dataspaces</a></li>
+<li><a href="#orgef5ab72">13. <span class="todo TODO">TODO</span> Dissemination of Internet of Things Streams in a Real-time Linked Dataspace</a></li>
+<li><a href="#org8ce823a">14. <span class="todo TODO">TODO</span> Approximate Semantic Event Processing in Real-time Linked Dataspaces</a></li>
+<li><a href="#org67a6ad9">15. <span class="todo TODO">TODO</span> Enabling Intelligent Systems, Applications, and Analytics for Smart Environments Using Real-time Linked Dataspaces</a></li>
+<li><a href="#orgc331fdb">16. <span class="todo TODO">TODO</span> Autonomic Source Selection for Real-time Predictive Analytics Using the Internet of Things and Open Data</a></li>
+<li><a href="#org67763d6">17. <span class="todo TODO">TODO</span> Building Internet of Things-Enabled Digital Twins and Intelligent Applications Using a Real-time Linked Dataspace</a></li>
+<li><a href="#orgc5e5146">18. <span class="todo TODO">TODO</span> A Model for Internet of Things Enhanced User Experience in Smart Environments</a></li>
+<li><a href="#org973a8bc">19. <span class="todo TODO">TODO</span> Future Research Directions for Dataspaces, Data Ecosystems, and Intelligent Systems</a></li>
+<li><a href="#orgef364b2">20. Final Considerations</a></li>
+</ul>
+</div>
+</div>
+<p>
+This article is a review of Curry, E. (2020). Real-time Linked Dataspaces. Springer International Publishing. <a href="https://doi.org/10.1007/978-3-030-29665-0">https://doi.org/10.1007/978-3-030-29665-0</a>
+</p>
+
+<div id="outline-container-org467e386" class="outline-2">
+<h2 id="org467e386"><span class="section-number-2">1</span> Preliminaries</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+It starts describing challenges in handling data integration and its corresponding activities. It also discusses the number of connected devices from IoT-based infrastructure, producing a huge amount of data. Traditional approaches to data management are not sufficient to deal with it. As a result, it is increasing the number of data silos. A paradigm shift is necessary to overcome the challenges. Moreover, a new class of information management and processing system is required to support distributed real-time applications. These systems have to be able to handle semantically heterogeneous databases and perform integration involving thousands of data sources.
+</p>
+
+<p>
+The Pareto principle says that 20% of the effort delivers 80% of the results.
+This has been valid for many aspects of computer science.
+For example, 20% of bugs that cause 80% of the system crashes.
+However, the current way large-scale data ecosystem infrastructures are designed does not fit that principle.
+This book is a step towards unlocking the Pareto effect over data.
+</p>
+
+<blockquote>
+<p>
+"This book explores the dataspace paradigm as an alternative best-effort approach
+to data management with data ecosystems. 
+It establishes the theoretical foundations and principles of Real-time Linked Dataspaces as a data platform for intelligent systems, and introduces a set of specialised best-effort techniques and models to enable loose administrative proximity and semantic integration for managing and processing events and streams."
+</p>
+</blockquote>
+</div>
+</div>
+
+
+
+
+
+
+<div id="outline-container-org5d33a80" class="outline-2">
+<h2 id="org5d33a80"><span class="section-number-2">2</span> <span class="done DONE">DONE</span> A Data Platform for Intelligent Systems</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+
+<div id="outline-container-org50f04f4" class="outline-3">
+<h3 id="org50f04f4"><span class="section-number-3">2.1</span> Summary</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+A digital revolution is turning traditional infrastructure into sophisticated smart systems, like autonomous vehicles, and Industry 4.0.
+This revolution creates smart environments powered by digital technologies such as the Internet of things, big data, and artificial intelligence.
+However, smart environments require a new class of systems to support diverse distributed real-time data.
+The critical requirements of such systems are the capability of processing data on-the-fly with low latency.
+Real-time Linked Dataspaces (RLD) address these requirements by combining pay-as-you-go data management with techniques for flexible data integration and real-time, working as a data platform for intelligent systems within smart environments.
+</p>
+</div>
+
+<div id="outline-container-org4c96cba" class="outline-4">
+<h4 id="org4c96cba"><span class="section-number-4">2.1.1</span> Foundations</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+Real-time Linked Dataspaces lie at the intersection of the fields of:
+</p>
+
+<ul class="org-ul">
+<li><b>Data Management</b>: data ecosystems, pay-as-you-go, knowledge graphs;</li>
+<li><b>Distributed Systems</b>: Internet of things, event and stream processing;</li>
+<li><b>Artificial Intelligence</b>: intelligent systems;</li>
+<li><b>Ubiquitous Computing</b>: smart environments.</li>
+</ul>
+
+<p>
+The following foundations present recent developments with regard to data-intensive technics:
+</p>
+
+<ul class="org-ul">
+<li><b>Intelligent Systems</b>: There are several definitions of intelligent systems. Most of them include the adoption of artificial intelligence. Intelligent systems are those systems capable of gather, represent, reason, and interpret data. On top of that, an intelligent system can learn, extract patterns and meaning, derive new information, learn from experience, and identify strategies and behaviors to act intelligently.</li>
+
+<li><b>Smart Environments</b>: A Smart environment is defined by several and complementary definitions. Most of them include ubiquitous features to systems that represent in some kind the physical world.</li>
+
+<li><b>Internet of Things</b>: IoT is a key driver for implementing smart environments. The adoption of IoT results in interaction paradigms through cognitive and behavioral models. It enables the use of low-cost sensors that collect and share data. New forms of data processing are required to deal with the volume, variety, and velocity of data generated by those sensors.</li>
+
+<li><b>Data Ecosystems</b>: A data ecosystem is a system that allows value to be extracted from data supported by organizations and individuals. Data ecosystems bring together data from multiple intelligent systems.</li>
+</ul>
+
+<p>
+A key aspect for enabling the adoption of data ecosystems for intelligent systems consists of supporting the sharing and management of data among systems in the ecosystem. 
+Large scale data platforms have been adopted to provide secure and trusted data sharing amongst a group of participants. 
+In the context of smart environments, a data platform would support continuous, coordinated data flows, seamlessly moving data among intelligent systems.
+</p>
+
+<p>
+Dataspaces are not a data integration approach.
+Actually, dataspace is a paradigm that supports the co-existence of heterogeneous data that does not require an immediately unified schema or integration.
+Instead, data integration is postponed until required.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orge915923" class="outline-3">
+<h3 id="orge915923"><span class="section-number-3">2.2</span> Comments</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+This chapter starts with an overview of the ability of humans to store, analyze, and share information.
+This overview shows the evolution of data management technics from primal mechanisms to modern cyber-systems.
+</p>
+
+<p>
+It seems that the authors use the terms "real-time" and "on-the-fly" interchangeably.
+It is a fact that laypeople tend to use the term "real-time" to express "online" or "on-the-fly" or "the most recent" and similar connotations.
+However, in the context of computer science for an audience of specialists, I would reserve "real-time" concepts for addressing that kind of computing that uses deadlines.
+</p>
+
+<p>
+The authors place RLD at the intersection of several fields.
+However, I disagree with the attributes they associate with each field.
+For example, pay-as-you-go associated with data management.
+This feature could be applied to other fields, such as distributed systems that adopt it for managing computing resources. 
+The same is valid to event and stream processing, that be applied to other fields.
+In other words, these features do not reflect properly their corresponding fields.
+On the other hand, when presenting the necessary foundations, the authors provide a much better explanation in which present the multiple possible combinations of such features.  
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgdfee682" class="outline-2">
+<h2 id="orgdfee682"><span class="section-number-2">3</span> <span class="todo TODO">TODO</span> Enabling Knowledge Flows in an Intelligent Systems Data Ecosystem</h2>
+</div>
+
+<div id="outline-container-orga7976f0" class="outline-2">
+<h2 id="orga7976f0"><span class="section-number-2">4</span> <span class="todo TODO">TODO</span> Dataspaces: Fundamentals, Principles, and Techniques</h2>
+</div>
+
+<div id="outline-container-org1e4c79c" class="outline-2">
+<h2 id="org1e4c79c"><span class="section-number-2">5</span> <span class="todo TODO">TODO</span> Fundamentals of Real-time Linked Dataspaces</h2>
+</div>
+
+<div id="outline-container-org0303b6d" class="outline-2">
+<h2 id="org0303b6d"><span class="section-number-2">6</span> <span class="todo TODO">TODO</span> Data Support Services for Real-time Linked Dataspaces</h2>
+</div>
+
+<div id="outline-container-orgc8cc9bc" class="outline-2">
+<h2 id="orgc8cc9bc"><span class="section-number-2">7</span> <span class="todo TODO">TODO</span> Catalog and Entity Management Service for Internet of Things-Based Smart Environments</h2>
+</div>
+
+<div id="outline-container-orgcfefe54" class="outline-2">
+<h2 id="orgcfefe54"><span class="section-number-2">8</span> <span class="todo TODO">TODO</span> Querying and Searching Heterogeneous Knowledge Graphs in Real-time Linked Dataspaces</h2>
+</div>
+
+<div id="outline-container-org66781db" class="outline-2">
+<h2 id="org66781db"><span class="section-number-2">9</span> <span class="todo TODO">TODO</span> Enhancing the Discovery of Internet of Things-Based Data Services in Real-time Linked Dataspaces</h2>
+</div>
+
+<div id="outline-container-org6412f49" class="outline-2">
+<h2 id="org6412f49"><span class="section-number-2">10</span> <span class="todo TODO">TODO</span> Human-in-the-Loop Tasks for Data Management, Citizen Sensing, and Actuation in Smart Environments</h2>
+</div>
+
+<div id="outline-container-org121beb0" class="outline-2">
+<h2 id="org121beb0"><span class="section-number-2">11</span> <span class="todo TODO">TODO</span> Stream and Event Processing Services for Real-time Linked Dataspaces</h2>
+</div>
+
+<div id="outline-container-org497edbb" class="outline-2">
+<h2 id="org497edbb"><span class="section-number-2">12</span> <span class="todo TODO">TODO</span> Quality of Service-Aware Complex Event Service Composition in Real-time Linked Dataspaces</h2>
+</div>
+
+<div id="outline-container-orgef5ab72" class="outline-2">
+<h2 id="orgef5ab72"><span class="section-number-2">13</span> <span class="todo TODO">TODO</span> Dissemination of Internet of Things Streams in a Real-time Linked Dataspace</h2>
+</div>
+
+<div id="outline-container-org8ce823a" class="outline-2">
+<h2 id="org8ce823a"><span class="section-number-2">14</span> <span class="todo TODO">TODO</span> Approximate Semantic Event Processing in Real-time Linked Dataspaces</h2>
+</div>
+
+<div id="outline-container-org67a6ad9" class="outline-2">
+<h2 id="org67a6ad9"><span class="section-number-2">15</span> <span class="todo TODO">TODO</span> Enabling Intelligent Systems, Applications, and Analytics for Smart Environments Using Real-time Linked Dataspaces</h2>
+</div>
+
+<div id="outline-container-orgc331fdb" class="outline-2">
+<h2 id="orgc331fdb"><span class="section-number-2">16</span> <span class="todo TODO">TODO</span> Autonomic Source Selection for Real-time Predictive Analytics Using the Internet of Things and Open Data</h2>
+</div>
+
+<div id="outline-container-org67763d6" class="outline-2">
+<h2 id="org67763d6"><span class="section-number-2">17</span> <span class="todo TODO">TODO</span> Building Internet of Things-Enabled Digital Twins and Intelligent Applications Using a Real-time Linked Dataspace</h2>
+</div>
+
+<div id="outline-container-orgc5e5146" class="outline-2">
+<h2 id="orgc5e5146"><span class="section-number-2">18</span> <span class="todo TODO">TODO</span> A Model for Internet of Things Enhanced User Experience in Smart Environments</h2>
+</div>
+
+<div id="outline-container-org973a8bc" class="outline-2">
+<h2 id="org973a8bc"><span class="section-number-2">19</span> <span class="todo TODO">TODO</span> Future Research Directions for Dataspaces, Data Ecosystems, and Intelligent Systems</h2>
+</div>
+
+
+<div id="outline-container-orgef364b2" class="outline-2">
+<h2 id="orgef364b2"><span class="section-number-2">20</span> Final Considerations</h2>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 27/06/2020</p>
+<p class="author">Author: Ivan Salvadori</p>
+<p class="date">Created: 03/07/2020</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

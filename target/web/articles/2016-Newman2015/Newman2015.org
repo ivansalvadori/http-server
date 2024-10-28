@@ -1,0 +1,232 @@
+#+TITLE: Building Microservices (Review)
+#+AUTHOR: Ivan Salvadori
+#+DESCRIPTION: Review
+
+#+INFOJS_OPT: path:../../HtmlTemplate/ccReport.js
+#+HTML_HEAD: <link id="tema" rel="stylesheet" type="text/css" href="../../HtmlTemplate/ccReport.css" />
+
+#+MACRO: tag @@latex:\hfill{}\textsc{$1}@@ @@html:&#xa0;&#xa0;&#xa0;<span class="tag"><span class="$1">$1</span></span>@@
+
+#+TODO: TODO(t) STARTED(s) WAITING(w) | DONE(d) CANCELED(c)
+
+Newman, S. (2015). Building Microservices. (M. Loukides & B. MacDonald, Eds.), O’Reilly. Gravenstein Highway North, Sebastopol, CA. USA: O’Reilly Media.  
+
+* Chapters[12/12]
+
+** DONE Microservices
+  CLOSED: [2015-10-07 Qua 18:14]
+   It defines DDD by Eric Evans as a model of representing the real world in code, and a better way to model systems. It defines Microservices as *small, autonomous services that work together*.
+
+*** Characteristics
+ + *Small, and Focused on Doing One Thing Well*
+   + It is about Single Responsibility Principle, which states "Gather together those things that change for the same reason, and separate those things that change for different reasons".
+
+ + *Autonomous*
+   + A microservice is a separate entity. All communication between the services are via network calls. These services need to be able to change independly. When deploying a microservice them do not require any consumer change. *The golden rule: can you make a change to a service and deploy it by itself without changing anything else?* 
+
+ + *Technology Heterogeneity* 
+   + It is possible to use different techology inside each microservice. It makes easy to rewrite an entire microservices with a new technology. It is possitive the possibility to combine different techonolgies to build a system with different characteristics. 
+
+ + *Resilience* 
+   + The main point is the possibilty to isolate a point of failure instead of break down (stop) all the system.
+
+ + *Scaling* 
+   + We can scaling microservices in a fine grained way than a entire monolith system. It enables to control cost more effectively.
+
+ + *Easy of Deployment* 
+   + It alows to deploy the code faster. if something goes wrong. It is easy to make a rollback. New functionalities can be available faster. 
+
+ + *Organizational Alignment*
+   + It is about the alignment of the architecture to the organization. As a result is possible minimize the number of people working on a smaller code base (it is more produtive).   
+
+ + *Composability*
+   + Reuse of functionality. Microservices allow functionality to be consumed in different ways for differnt purposes. 
+
+ + *Optimizing for Replaceability*
+   + With small services it is easy to replace them with a better implementation. It minimizes the problem of rewrinting a entire service, or kill a service when it is no longer needed.
+
+*** Microservices and SOA
+   The author says that SOA has many problems, like communication protocols (SOAP), vendor lock-in, lack of guidance about service granularity and how to split a big system into a something small. It is also said the SOA does not talk enough about real world problems. 
+
+*** My Comments
+   It seems that when we talk about independency of microservices, we are talking about the deployment process. Microservices should be independently deployed. However, microservices do not are independent in terms of communication. Probably theses services will change messages to each other. So in that context micorservices are not independent.
+ 
+
+** DONE The Evolutionary Architect
+  CLOSED: [2015-10-08 Qui 09:12]
+  This chapter talks about the architect's role and their challenge. Newman stablishes the differences between the engineers/architects (the real ones) and the software architects. The real ones have the discipline, which the software ones do not necessary have. This chapter cites a link for the [[http://12factor.net/][12Factors]] as a set of design principles. 
+
+*** My Comments
+   In this chapter there is a big discussion about the architect's role in a microservice architecture. At the end of the chapter, Newman talks about the core responsabilty of the achitect, and cites /autonomy/ as /finding the right balance between standards and enabling autonomy for the teams/. What kind of autonomy the author is talking about? Here, there a lot of levels of autonomy. I guess one of the most challenge problem is related with autonomy, in the context of developing autonomy. Here again there are several levels of developing autonomy. The point is, have the develpers autonomy for modeling their services with autonomy in a scenario where several microservices are composed? 
+
+
+** DONE How to Model Services
+  CLOSED: [2015-10-08 Qui 16:49]
+In the question What makes a good service it is said to focus on two key concepts: loose coupling and high cohesion. It is explained what those two key concepts mean in terms of microservices. 
+ 
+  + Losse coupling: when a change to one service should not require a change to another.
+  + Hight cohesion: finding the boundaries within a problem domain and ensure that related behavior is in one place. It is related to Bounded Context of DDD, wich defines a interface for a given model.
+ 
+  Newman emphasizes the importance of keeping the microservice within a bounded context. Thinking about bounded contexts it is not about the data the is shared, but about the capabilities those context provide to the rest of the domain. It is also provides a explanation about what is a bounded context. For instance, some bounded context could wrap internal bounded contexts. For this situation, it would be possible to split all the internal bounded context to separated services. It is a good idea if each service is managed by different teams. But it is no necessary splitting the coarse-grained bounded context if it is managed as an unity.
+  
+*** My Comments
+   This chapter enphasiszes the idea of reducing the number of places that need to make a change. It is said that the communication between the microservices should follow the same business concepts. So, that restriction motivates the use of ontologies for modeling data and services.  
+
+
+** DONE Integration
+  CLOSED: [2015-10-21 Qua 18:23]
+  This chapter aims to show some of the biggest pitfalls of microservice architecture. Is it said some important characteristics that microservices should have, Such as avoid make the consumers out of date due a change of the service, make the services simple for consumers, hide implementation details. Here, Newman remember us about the core principles behind good microservices (Strong cohesion and loose coupling), when he talks about database integration, which none of the principles are present.
+
+  This chapter also discusses about how services collaborate. Should communication be synchronous (request/response) or asynchronous? (event-based). Newman says that the asynchronous communication can be useful for long-running jobs. Event-based collaboration is also highly decoupled. Newman said his preference is choreographed system due to its loose coupling. 
+
+  Newman presents a great explanation about REST and HATEOAS and the benefits of the progressively discovery of the API. He says that the link property /rel/ is responsible to define the protocol used for the application. Hence, the client has to understand the semantics of the API.
+
+  In the asynchronous communication, Newman says to keep the broker dumb and keep the smarts in the endpoints. He also pointed out some of the most common problems when using message brokers.
+
+  Newman talk about how dangerous can be the use of shared library in a microservice architecture. Shared library introduces a high coupling because one change in that library demands changes in all services that use that library.
+
+  The author says that the best way to reduce the impact of make consumers out of date is to avoid making changes. The key point is choose an integration technology that hide implementation details. Newman cites the Postel's law, which means the consumers should be as flexible as possible in consuming a service. In that context, consumers should be able to parse a piece of information sent by the services, even that the structure of the information has been changed a little (added or removed some fields). Newman also explains how to use different approaches for versioning endpoints.
+
+  It is also presented how to build user interfaces to interact with microservices. It is presented the API composition approach, fragment composition among others. In the end of this chapter, Newman talks a bit about third-party software integration (I just did a fast read).
+
+*** My Comments  
+   The author's opinion about to void making changes is a key point. The focus of my research is to reduce the needs make such changes. Actually, those changes can happen, but consumers can deal with it. To achieve this, it is necessary to reduce even more the implementation details of REST APIs.  
+
+   Newman says that it is necessary to think about the user interfaces in the context of integration. However, I do not think so, because microservices can be used only to machine-to-machine integrations.
+
+   An alternative to build user interfaces is build them based on resources. It is almost what callimachus does. This approach means that UI is capable of properly render the resources managed by an API.  
+ 
+
+** DONE Splitting the Monolith
+   CLOSED: [2015-12-08 Ter 17:31]
+  In this chapter, Newman reminds us that monolithic applications are not highly cohesive neither loosely coupled. It is also explained the concept of seam as a portion of code that can be treated isolated without impacting other code bases.
+Newman says that the best approach for splitting the monolith is using an  incremental approach (a piece at a time) instead of splitting all the system in just one step. Here are some guides/reasons that might help:
+
+1. Pace of change: split out the things that are more valuable or that could be done faster and autonomous.
+2. Team structure: split out the things in order to a unique team work in a microservice without geographical issues.
+3. Security: split out things that require additional security.
+4. Technology: represents a possibility to safely try out a new technology.
+
+We have to take into account the level of dependencies between the identified seams.
+Moreover, it is said that the mother of all tangled dependencies is *the database*, though, due to this, databases also have to be split out.
+However, by splitting out data base in exposing the data over the wire (HTTP calls) probably will affects the performance.
+
+Newman also says here a little about being unable to use transactions over split data bases. He give us three solutions: eventual consistence; compensating transaction and distributed transaction. The Newman's advice is to avoid splitting services that require a transaction to keep the consistence.
+
+Data retrieval via service calls is also discussed.
+The way microsevices are organized might make difficult a given consumer obtain data.
+A consumer will probably need make requests to several microservices in order to get the desirable data. One solution cited by Newman is to design batch requests, which require a set of data into a conversation process. Using batch requests, the consumer avoid doing a lot of requests over a list of IDs. 
+Data pushing is another alternative. A standalone application may retrieve data directly from database and pump into another database. This is an exception on sharing database. An alternative for data pumping is data event, which microservices may emit events when a resource's state change. 
+
+*** My Comments
+   By splitting a monolith in several microservices results in a community of fined-grain components that have to communicate with one another in a complex net of dependencies of services spread in a network. 
+
+   Batch requests seem to be a good way to reduce the number of requests on getting a huge amount of data from Web APIs. This is a real problem barely faced by developers. It is also related to the fact that a given consumer may have different expectation about a service and data. It is not only about databases, it's about expectations and goals.
+   
+
+** DONE Deployment
+   CLOSED: [2016-03-30 Qua 12:34]
+Newman starts talking about Continuous Integration (CI), which the main goal is to make sure the new code properly integrates with existing code. There are three main activities to performer CI, such as checking all the code committed into a mainline code base, testing the code to make sure it haven't broken the behavior of the system, and when the build is broken, the priority 1 is to fix it.  There are several approaches to adopt when performing CI. However, Newman suggests the adoption of one repository per microservice, with it own source control and build process. The main idea is to avoid the global building for a single change in a single microservice.
+
+Newman also talks about Continous Delivery (CD), which relies on the concept of pipelines  for defining the stages of the software build. Here Newman suggests a pipeline per microservice. Newman presents a lof of tools for CD, that facilitates the deplyment and testing in a given process stage, such as slow testes, production teste, and so on.
+
+Newman explains some deployment models, such as multiple services per host and single service per host. Considering the autonomy provided by microservices, the deployment have to take into account that different teams are responsible for managing different microservices. That means a single host used to run multiples services owned by different teams breaks their autonomy. Newman suggests to adopt the single host per service model. The author states that by using the one server per host model get the management more complicated. That's is true if the hosts are managed manually. So in that model it is recommended to adopt mechanisms for automating the host management. Newman says that automation is the key to keep complexities under control.
+
+*** My Comments
+It is not clear at the moment how to evolve a microservice independently of the rest. How to ensure a change in a single microservice will not affect the others? Should we write integration tests in running microservices instances? 
+
+Newman take a very flexible position on adopting the different approaches, specially in the early stages of development, when things are not clear enough to make the most accurate decisions. 
+
+Now it's clear that through the pipeline the software might be deployed and tested. 
+
+
+** CANCELED Testing
+   CLOSED: [2017-01-31 Ter 22:02]
+   This chapter was intentionally postponed due to low priority in this subject.
+
+** CANCELED Monitoring
+   CLOSED: [2017-01-31 Ter 22:03]
+   This chapter was intentionally postponed due to low priority in this subject.
+
+** CANCELED Security
+   CLOSED: [2017-01-31 Ter 22:03]
+   This chapter was intentionally postponed due to low priority in this subject.
+
+
+** DONE Conway’s Law and System Design
+   CLOSED: [2017-01-31 Ter 22:40]
+   It is all about the Melvin Conway’s paper How Do Committees Invent, published in Datamation magazine in April 1968 taht says:
+
+  "/Any organization that designs a system (defined more broadly here than just information systems) will inevitably produce a design whose structure is a copy of the organization’s communication structure/"
+
+  This chapter basically brings nothing new. It discusses some forms of organizing teams.
+
+*** My Comments
+    Actually, the majority of these aspects regarding development teams also could be applied to other context other than microservices. It seems that, in this matter, microservices just bring people organization best practices. But I agree with Conway's Low, because people need concrete things to support their daily-life ditties, and communication structure is something concrete and very real. 
+
+
+** DONE Microservices at Scale
+   CLOSED: [2017-02-06 Seg 17:55]
+This chapter addresses issues related to situations where microservices reache a more complex scenarios with hundreds of services.
+
+Concepts such as circuit breakers, bulkheads and isolation are presented as solutions to deal with failures. Furthermore, failures should be treat as something natural in systems, and system should embrace them, not try to avoid them - what is impossible.
+
+Idempotency is described as a alternative to solve some failures, since this type of operation allows the client repenting several times the request without any undesirable effect. Moreover, the author makes clear the importance to respect the HTTP verb semantics to do not create misunderstanding problems concerning idempotency.
+
+The use of load balancers allows to add more microservices at runtime, so it improves the resiliency and also the computing load.  
+
+It is important to separate the concept of service availability from data durability. In this sense, it is possible to separate read operation from write operations when one of them is more required. One way to do that is using database read replica. However, in this scenario, the a given write operation will update just a master database, and then it will replicate to the replicas at some moment after the write. However, the author recommends to consider first the use of caching, which demands less effort. With regard caching, this chapter presents three different approaches, such as client-side, proxy and service-side. For writing operations, sharding may be used to scale. By using sharding, we have multiple database nodes, in which the data is stored based on a distribution function. Finally, a traditional RDBMS is able to handle multiple schemes, each one for a single microservice. However, it is considered a single point of failure, and should only be used considering the involved risks.
+
+This chapter also presents the Command-Query Responsibility Segregation (CQRS) pattern, which separate commands, which modify state, from queries, which retrieve information. This separation invloves using independente internal models for reading and for data modification.
+
+The CAP theorem means that in a distributed system, it is just possible to choose two features among /consistency/, /availability/ and /partition tolerance/. "/Consistency is the system characteristic by which I will get the same answer if I go to multiple nodes. Availability means that every request receives a response. Partition tolerance is the system’s ability to handle the fact that communication between its parts is sometimes impossible./"
+
+This chapter also brings service discovery to discussion. It is said that it provides mechanisms for a microservice to register and also to find the service once it is registered. It starts describing DNS and then presents dynamic service registries, such as Zookeeper, Consul and Eureka. Zookeeper is used for synchronizing data between services, leader election, message queues, and (usefully for us) as a naming service. However, it allows to store the information about where our services are located in this structure. Consul supports both configuration management and service discovery. It can retrive both an IP and port for a given name. Eureka is a configuration store and also a load-balancer.
+
+At the end, this chapter presents Swagger and HAL as solution for describing services.
+"/Swagger lets you describe your API in order to generate a very nice web UI that allows you to view the documentation and interact with the API via a web browser./". "/HAL is a standard that describes standards for hypermedia controls that we expose./". "/The fact that HAL also describes a hypermedia standard with some supporting client libraries is an added bonus, and I suspect is a big reason why I’ve seen more uptake of HAL as a way of documenting APIs than Swagger for those people already using hypermedia controls./"
+
+
+
+*** Comments
+Newman starts talking about failure, such as network and physical components failure. It is said that a single point should be avoid. However, it is recommend a load balancer, which represents a single entrance point to the system. However, I'm my point of view, this is a general topic that could be applied to any software development, not specifically to microservices. In addition, too much story to describe the content, including anecdotes from big companies to personal experiences.
+
+There is a lot of information about caching. However, all this is not specific to microservices, which put a huge amount of concepts together. As a result, it is difficult to properly define microservices with those related topics.
+
+It is quite strange that service discovery is presented after service description. How to discover service without describe them? Newman starts describing service discovery by presenting DNS, which I consider just a name resolver, not a service discovery method properly. Moreover, it presents Zookeeper in which was originally developed for a different purpose than service discovery. However, the author says that Zookeeper itself is fairly generic in what it offers. Consult shares the same issues, it only returns IP and port based on a given name. How about the microservice capability? Finally, Eureka is a configuration store and also performs loading-balancing. It seems that service discovery tools are not specialized in service discovery.
+
+
+
+
+** DONE Bringing It All Together
+   CLOSED: [2017-02-06 Seg 18:16]
+This chapter summarizes microservice principles:
+
+1) *Model around business concepts*: interfaces structured around business are more stable than those structured around technical concepts.
+
+2) *Adopt a Culture of Automation Microservices*: aims at addressing microservice complexity.
+
+3) *Hide Internal Implementation Details*: to maximize the ability of one service to evolve independently of any others. Services should also hide their databases.
+
+4) *Decentralize All the Things*: to maximize the autonomy of microservices by delegating decision making and control to the teams that own the services themselves. It Avoids approaches like enterprise service bus or orchestration systems, which can lead to centralization of business logic and dumb services.
+
+5) *Independently Deployable*: to ensure that our microservices can and are deployed by themselves.
+
+6) *Isolate Failure*: to understand and plan for failures in part of our system.
+
+7) *Highly Observable*: it is not possible to observe the behavior of a single service instance or the status of a single machine to see if the system is functioning correctly.
+
+
+
+*** Comments
+It seems that most of microservice principles could be easily applied to any type of software. 
+
+
+* Overall Comments
+Microservices principles rely on several software engineering subjects. I think that would be interesting to isolate all those subjects regarding software engineering and to analyze microservices focused on distributed systems aspects only.
+
+There are a variety of topics related to microservices, such as deployment techniques, team/people management, security, monitoring, failure recovery, among others. These topics could be easily be applied to general software development. however, these off-topics are put together with microservices, which makes difficult to understand what characteristics are specific to microservices.
+
+For sure this book has a lot of positive characteristics. However, Newman wrote too many words to say what he meant to say. In order to explain a given concept, he introduces a whole story. That's no completely bad, but in this case he could go directly to the point. That made this book boring and time demanding.
+
+

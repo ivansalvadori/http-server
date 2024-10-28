@@ -1,0 +1,22 @@
+#+INCLUDE: "header.org"
+#+BEGIN_EXPORT html
+<script src="css/bibtexParser.js"></script>
+#+END_EXPORT
+
+* Publications
+
+
+
+#+BEGIN_EXPORT html
+<div id="pub-div"></div>
+#+END_EXPORT
+
+ 
+
+
+
+
+
+
+
+
